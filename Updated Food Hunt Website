@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Hunt - Authentic Indian Cuisine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        html {
+            font-size: 62.5%;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 3.5rem;
+            margin-bottom: 5rem;
+            color: #2c3e50;
+            position: relative;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #e67e22;
+            border-radius: 2px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: #e67e22;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #d35400;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            height: 80px;
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #e67e22;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #2c3e50;
+        }
+        
+        .menu-items {
+            display: flex;
+            list-style: none;
+        }
+        
+        .menu-items li {
+            margin-left: 3rem;
+        }
+        
+        .menu-items a {
+            font-size: 1.6rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .menu-items a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e67e22;
+            transition: width 0.3s ease;
+        }
+        
+        .menu-items a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-items a:hover {
+            color: #e67e22;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        /* Showcase/Hero Section */
+        .showcase {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 8rem;
+        }
+        
+        .showcase-content {
+            width: 100%;
+            color: #fff;
+        }
+        
+        .main-title {
+            font-size: 6rem;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .showcase p {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease;
+        }
+        
+        /* About Section */
+        #about {
+            padding: 8rem 0;
+            background: #f9f9f9;
+        }
+        
+        .about-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 4rem;
+        }
+        
+        .about-img {
+            flex: 1 1 40rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-text {
+            flex: 1 1 40rem;
+        }
+        
+        .about-text p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Food Categories */
+        #categories {
+            padding: 8rem 0;
+        }
+        
+        .categories-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 3rem;
+        }
+        
+        .category {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            height: 300px;
+        }
+        
+        .category:hover {
+            transform: translateY(-10px);
+        }
+        
+        .category img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(230, 126, 34, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .category:hover .category-overlay {
+            opacity: 1;
+        }
+        
+        .category-overlay h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        
+        /* Food Menu */
+        #menu {
+            padding: 8rem 0;
+            background: #f9f9f9;
+        }
+        
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+            gap: 4rem;
+        }
+        
+        .menu-item {
+            display: flex;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-img {
+            flex: 1;
+        }
+        
+        .menu-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .menu-content {
+            flex: 1;
+            padding: 2rem;
+        }
+        
+        .menu-title {
+            font-size: 2.2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .menu-description {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .menu-price {
+            font-size: 1.8rem;
+            color: #e67e22;
+            font-weight: 700;
+        }
+        
+        /* Testimonials */
+        #testimonials {
+            padding: 8rem 0;
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+        
+        .testimonial {
+            background: #fff;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-10px);
+        }
+        
+        .customer-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2rem;
+            border: 5px solid #e67e22;
+        }
+        
+        .customer-name {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .stars {
+            color: #f1c40f;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+        
+        .testimonial-text {
+            font-size: 1.5rem;
+            color: #666;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        /* Contact */
+        #contact {
+            padding: 8rem 0;
+            background: #f9f9f9;
+        }
+        
+        .contact-container {
+            display: flex;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-img {
+            flex: 1;
+        }
+        
+        .contact-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .form-container {
+            flex: 1;
+            padding: 4rem;
+        }
+        
+        .form-container h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: none;
+            border-radius: 5px;
+            background: #f5f5f5;
+            font-size: 1.4rem;
+            color: #333;
+        }
+        
+        .form-container textarea {
+            height: 150px;
+            resize: none;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #e67e22;
+            color: #fff;
+            border-radius: 50%;
+            margin: 0 1rem;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #fff;
+            color: #e67e22;
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: #fff;
+            width: 80%;
+            max-width: 800px;
+            margin: 5% auto;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            animation: modalFadeIn 0.5s ease;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 3rem;
+            color: #2c3e50;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            z-index: 1;
+        }
+        
+        .close-modal:hover {
+            color: #e67e22;
+        }
+        
+        .modal-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .modal-body {
+            padding: 3rem;
+        }
+        
+        .modal-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-price {
+            font-size: 2rem;
+            color: #e67e22;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+        
+        .modal-description {
+            font-size: 1.6rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .ingredients h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .ingredients ul {
+            list-style: none;
+        }
+        
+        .ingredients li {
+            font-size: 1.4rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .ingredients li::before {
+            content: '•';
+            color: #e67e22;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-img {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            html {
+                font-size: 55%;
+            }
+            
+            .menu-items {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: #fff;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: left 0.3s ease;
+            }
+            
+            .menu-items.active {
+                left: 0;
+            }
+            
+            .menu-items li {
+                margin: 2rem 0;
+            }
+            
+            .hamburger {
+                display: block;
+                font-size: 2.5rem;
+                color: #2c3e50;
+            }
+            
+            .main-title {
+                font-size: 4.5rem;
+            }
+            
+            .modal-content {
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 3.5rem;
+            }
+            
+            .menu-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-item {
+                flex-direction: column;
+            }
+            
+            .menu-img {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Food <span>Hunt</span></a>
+                <ul class="menu-items">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Showcase/Hero Section -->
+    <section class="showcase" id="home">
+        <div class="container">
+            <div class="showcase-content">
+                <h1 class="main-title">Discover Authentic Indian Flavors</h1>
+                <p>Experience the rich culinary heritage of India with our carefully crafted dishes made from traditional recipes and fresh ingredients.</p>
+                <a href="#menu" class="btn">Explore Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-wrapper">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="About Food Hunt">
+                </div>
+                <div class="about-text">
+                    <p>Welcome to Food Hunt, where we bring the authentic taste of India to your plate. Our chefs use traditional recipes passed down through generations, combined with the freshest ingredients to create unforgettable dining experiences.</p>
+                    <p>Founded in 2010, we've been serving the community with passion and dedication. Our mission is to share the diverse and vibrant flavors of Indian cuisine while maintaining the highest standards of quality and service.</p>
+                    <p>All our dishes are prepared with love and the perfect blend of spices that India is famous for. From rich curries to tandoori specialties, we offer a culinary journey through India's diverse regions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Categories -->
+    <section id="categories">
+        <div class="container">
+            <h2 class="section-title">Food Categories</h2>
+            <div class="categories-container">
+                <div class="category">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Vegetarian">
+                    <div class="category-overlay">
+                        <h3>Vegetarian</h3>
+                        <a href="#menu" class="btn">View Menu</a>
+                    </div>
+                </div>
+                <div class="category">
+                    <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Non-Vegetarian">
+                    <div class="category-overlay">
+                        <h3>Non-Vegetarian</h3>
+                        <a href="#menu" class="btn">View Menu</a>
+                    </div>
+                </div>
+                <div class="category">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Vegan">
+                    <div class="category-overlay">
+                        <h3>Vegan</h3>
+                        <a href="#menu" class="btn">View Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Food Menu -->
+    <section id="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-container">
+                <div class="menu-item" onclick="openModal('Butter Chicken', '₹320', 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Butter Chicken, also known as Murgh Makhani, is one of the most popular Indian dishes worldwide. Tender chicken pieces are marinated in yogurt and spices, cooked in a tandoor (clay oven), and then simmered in a rich, creamy tomato-based sauce with butter and cream.', 'Chicken, yogurt, tomato puree, butter, cream, garlic, ginger, garam masala, kasuri methi, honey')">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Butter Chicken">
+                    </div>
+                    <div class="menu-content">
+                        <h3 class="menu-title">Butter Chicken</h3>
+                        <p class="menu-description">Tender chicken in a creamy tomato and butter sauce with aromatic spices.</p>
+                        <p class="menu-price">Price: ₹320</p>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="openModal('Paneer Tikka', '₹280', 'https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Paneer Tikka is a popular North Indian appetizer where chunks of paneer (Indian cottage cheese) are marinated in spiced yogurt and then grilled in a tandoor. The result is a smoky, slightly charred, and incredibly flavorful dish.', 'Paneer, yogurt, ginger-garlic paste, turmeric, red chili powder, garam masala, lemon juice')">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Paneer Tikka">
+                    </div>
+                    <div class="menu-content">
+                        <h3 class="menu-title">Paneer Tikka</h3>
+                        <p class="menu-description">Marinated cottage cheese grilled to perfection with spices and vegetables.</p>
+                        <p class="menu-price">Price: ₹280</p>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="openModal('Biryani', '₹300', 'https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Biryani is a mixed rice dish with its origins among the Muslims of the Indian subcontinent. It is made with Indian spices, rice, and meat (chicken, beef, goat, lamb, prawn, or fish), and sometimes, in addition, eggs and/or vegetables.', 'Basmati rice, chicken/lamb, yogurt, onions, tomatoes, biryani masala, saffron, mint leaves')">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1631515243349-e0cb75fb8d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Biryani">
+                    </div>
+                    <div class="menu-content">
+                        <h3 class="menu-title">Biryani</h3>
+                        <p class="menu-description">Fragrant rice cooked with spices and your choice of meat or vegetables.</p>
+                        <p class="menu-price">Price: ₹300</p>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="openModal('Rogan Josh', '₹380', 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Rogan Josh is an aromatic lamb dish from Kashmir. The lamb is cooked with yogurt, garlic, ginger and aromatic spices like cardamom, cloves and bay leaves until tender.', 'Lamb, yogurt, garlic, ginger, cardamom, cloves, bay leaves, Kashmiri chilies')">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Rogan Josh">
+                    </div>
+                    <div class="menu-content">
+                        <h3 class="menu-title">Rogan Josh</h3>
+                        <p class="menu-description">Aromatic Kashmiri lamb curry.</p>
+                        <p class="menu-price">Price: ₹380</p>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="openModal('Dal Makhani', '₹250', 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Dal Makhani is a staple dish from the Punjab region made with whole black lentils, red kidney beans, butter and cream. The lentils are slow cooked for hours to achieve a creamy texture.', 'Black lentils, kidney beans, butter, cream, tomatoes, garlic, ginger, garam masala')">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Dal Makhani">
+                    </div>
+                    <div class="menu-content">
+                        <h3 class="menu-title">Dal Makhani</h3>
+                        <p class="menu-description">Creamy black lentils with butter.</p>
+                        <p class="menu-price">Price: ₹250</p>
+                    </div>
+                </div>
+                <div class="menu-item" onclick="openModal('Samosa', '₹120', 'https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80', 'Samosa is a popular snack across South Asia. It consists of a fried or baked pastry with a savory filling, such as spiced potatoes, onions, peas, and sometimes lentils or minced meat.', 'Flour, potatoes, peas, spices, onions, green chilies, coriander leaves')">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Samosa">
+                    </div>
+                    <div class="menu-content">
+                        <h3 class="menu-title">Samosa</h3>
+                        <p class="menu-description">Crispy pastry filled with spiced potatoes and peas, served with chutney.</p>
+                        <p class="menu-price">Price: ₹120</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="container">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="testimonials-container">
+                <div class="testimonial">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer" class="customer-img">
+                    <h3 class="customer-name">Rajesh Kumar</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The Butter Chicken here is the best I've ever had! The flavors are perfectly balanced and the service was excellent. Will definitely be coming back!"</p>
+                </div>
+                <div class="testimonial">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer" class="customer-img">
+                    <h3 class="customer-name">Priya Sharma</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Authentic flavors and generous portions. The Paneer Tikka was perfectly cooked and the biryani reminded me of home. Highly recommended!"</p>
+                </div>
+                <div class="testimonial">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Customer" class="customer-img">
+                    <h3 class="customer-name">Amit Patel</h3>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"Great ambiance and delicious food. The samosas are crispy and flavorful. The service was quick and the staff was very friendly."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-img">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Restaurant Interior">
+                </div>
+                <div class="form-container">
+                    <h2>Get In Touch</h2>
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Your Phone">
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; <span id="year"></span> Food Hunt. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Food Modal -->
+    <div class="modal" id="foodModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img src="" alt="Food Item" class="modal-img" id="modalImg">
+            <div class="modal-body">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-price" id="modalPrice"></p>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="ingredients">
+                    <h3>Ingredients:</h3>
+                    <ul id="modalIngredients">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const menuItems = document.querySelector('.menu-items');
+        
+        hamburger.addEventListener('click', () => {
+            menuItems.classList.toggle('active');
+            hamburger.innerHTML = menuItems.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.menu-items a').forEach(item => {
+            item.addEventListener('click', () => {
+                menuItems.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Sticky Header on Scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+        
+        // Set Copyright Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Modal Functionality
+        function openModal(title, price, imgSrc, description, ingredients) {
+            const modal = document.getElementById('foodModal');
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalPrice').textContent = 'Price: ' + price;
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalDescription').textContent = description;
+            
+            const ingredientsList = document.getElementById('modalIngredients');
+            ingredientsList.innerHTML = '';
+            ingredients.split(',').forEach(ingredient => {
+                const li = document.createElement('li');
+                li.textContent = ingredient.trim();
+                ingredientsList.appendChild(li);
+            });
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('foodModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('foodModal')) {
+                closeModal();
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
